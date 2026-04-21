@@ -12,16 +12,18 @@ public class Runner extends Thread{
     private Testimone t;
     private String nome;
     
-    public Runner(String n){
+    public Runner(String n,Testimone t){
         this.nome = n;
+        this.t = t;
     }
     
     @Override
     public void run(){
         try{
-            t.corri();
+            t.corri(nome);
+            System.out.println(nome + " in corsa");
             Thread.sleep(2000);
-            t.esci();
+            t.esci(nome);
         } catch (InterruptedException ex) {
             System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

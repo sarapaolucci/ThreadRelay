@@ -9,21 +9,21 @@ package staffetta;
  * @author paolucci.sara
  */
 public class Testimone {
-    private boolean inCorsa;
+    private boolean inCorsa = false;
     
-    public synchronized void corri() throws InterruptedException{
+    public synchronized void corri(String nome) throws InterruptedException{
         while(inCorsa){
-            System.out.println("aspetto testimone...");
+            System.out.println(nome + " aspetta testimone...");
             wait();
         }
-        System.out.println("Ho il testimone");
+        System.out.println(nome + " ha il testimone");
         inCorsa = true;
         
     }
     
-    public synchronized void esci(){
+    public synchronized void esci(String nome){
         inCorsa = false;
-        System.out.println("Lascio il testimone");
+        System.out.println(nome + " passa il testimone");
         notifyAll();
     }
     
