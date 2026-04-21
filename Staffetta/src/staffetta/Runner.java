@@ -16,5 +16,16 @@ public class Runner extends Thread{
         this.nome = n;
     }
     
+    @Override
+    public void run(){
+        try{
+            t.corri();
+            Thread.sleep(2000);
+            t.esci();
+        } catch (InterruptedException ex) {
+            System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
+    }
     
 }
