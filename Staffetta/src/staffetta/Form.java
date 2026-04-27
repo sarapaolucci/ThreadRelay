@@ -9,7 +9,8 @@ package staffetta;
  * @author paolucci.sara
  */
 public class Form extends javax.swing.JFrame {
-    
+    private Runner r1,r2,r3,r4;
+    private Testimone t;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Form.class.getName());
 
     /**
@@ -17,6 +18,14 @@ public class Form extends javax.swing.JFrame {
      */
     public Form() {
         initComponents();
+        
+        t = new Testimone();
+        
+        r1 = new Runner("Angelica",t,pbr1);
+        r2 = new Runner("Elena",t,pbr2);
+        r3 = new Runner("Daniela",t,pbr3);
+        r4 = new Runner("Annalisa",t,pbr4);
+        
     }
 
     /**
@@ -37,7 +46,7 @@ public class Form extends javax.swing.JFrame {
         lbl2 = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
         lbl4 = new javax.swing.JLabel();
-        btn1 = new javax.swing.JButton();
+        btnAvvia = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
         btn3 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
@@ -59,9 +68,10 @@ public class Form extends javax.swing.JFrame {
         lbl4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         lbl4.setText("Runner 4");
 
-        btn1.setBackground(new java.awt.Color(204, 204, 204));
-        btn1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btn1.setText("Avvia");
+        btnAvvia.setBackground(new java.awt.Color(204, 204, 204));
+        btnAvvia.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnAvvia.setText("Avvia");
+        btnAvvia.addActionListener(this::btnAvviaActionPerformed);
 
         btn2.setBackground(new java.awt.Color(204, 204, 204));
         btn2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -108,7 +118,7 @@ public class Form extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(cmb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn1)
+                        .addComponent(btnAvvia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -138,7 +148,7 @@ public class Form extends javax.swing.JFrame {
                     .addComponent(lbl4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn1)
+                    .addComponent(btnAvvia)
                     .addComponent(btn2)
                     .addComponent(btn3)
                     .addComponent(btn4)
@@ -159,6 +169,10 @@ public class Form extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
+       r1.start();
+    }//GEN-LAST:event_btnAvviaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,10 +200,10 @@ public class Form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
+    private javax.swing.JButton btnAvvia;
     private javax.swing.JComboBox<String> cmb1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl1;
