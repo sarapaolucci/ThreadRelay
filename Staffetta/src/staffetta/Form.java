@@ -21,10 +21,10 @@ public class Form extends javax.swing.JFrame {
         
         t = new Testimone();
         
-        r1 = new Runner("Angelica",t,pbr1);
-        r2 = new Runner("Elena",t,pbr2);
-        r3 = new Runner("Daniela",t,pbr3);
-        r4 = new Runner("Annalisa",t,pbr4);
+        r1 = new Runner("Angelica",t);
+        r2 = new Runner("Elena",t);
+        r3 = new Runner("Daniela",t);
+        r4 = new Runner("Annalisa",t);
         
     }
 
