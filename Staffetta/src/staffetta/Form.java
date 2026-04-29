@@ -4,13 +4,15 @@
  */
 package staffetta;
 
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author paolucci.sara
  */
 public class Form extends javax.swing.JFrame {
-    private Runner r1,r2,r3,r4;
-    private Testimone t;
+    private Gestore g;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Form.class.getName());
 
     /**
@@ -19,13 +21,11 @@ public class Form extends javax.swing.JFrame {
     public Form() {
         initComponents();
         
-        t = new Testimone();
         
-        r1 = new Runner("Angelica",t);
-        r2 = new Runner("Elena",t);
-        r3 = new Runner("Daniela",t);
-        r4 = new Runner("Annalisa",t);
-        
+    }
+    
+    private void aggiorna(JProgressBar bar, int v) {
+        SwingUtilities.invokeLater(() -> bar.setValue(v));
     }
 
     /**
@@ -171,33 +171,21 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
-       r1.start();
+       this.g = new Gestore();
+        g.bind(
+            v -> aggiorna(pbr1, v),
+            v -> aggiorna(pbr2, v),
+            v -> aggiorna(pbr3, v),
+            v -> aggiorna(pbr4, v)
+        );
+        
+        g.startRace();
     }//GEN-LAST:event_btnAvviaActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Form().setVisible(true));
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn2;

@@ -4,30 +4,59 @@
  */
 package staffetta;
 
+import java.util.ArrayList;
+
 
 /**
  *
  * @author paolucci.sara
  */
 public class Runner extends Thread{
-    private Testimone t;
     private String nome;
-    
-    public Runner(String n,Testimone t){
-        this.nome = n;
-        this.t = t;
+    private ArrayList<Observer> observers = new ArrayList<>();
+    private int progresso = 0;
+
+    private Runner prossimo;
+    private boolean attivo = false;
+
+    public Runner(String nome) {
+        this.nome = nome;
     }
-    
-    @Override
-    public void run(){
-        try{
-            t.corri(nome);
-            System.out.println(nome + " in corsa");
-            Thread.sleep(50);
-            t.esci(nome);
-        } catch (InterruptedException ex) {
-            System.getLogger(Runner.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+
+    public void setProssimo(Runner r) {
+        this.prossimo = r;
+    }
+
+
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    private void notifyObservers() {
+        for (Observer o : observers) {
+            o.update(progresso);
         }
     }
+
+    @Override
+    public void run() {
+
+            for (int i = 0; i <= 100; i++) {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {}
+
+                progresso = i;
+                notifyObservers();
+
+                if (progresso >= 90) {
+                    prossimo.start();
+                }
+            }
+
+            attivo = false; // IMPORTANTISSIMO
+        }
+    
+    
  }
 
