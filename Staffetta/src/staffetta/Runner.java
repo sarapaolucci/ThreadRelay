@@ -11,52 +11,33 @@ import java.util.ArrayList;
  *
  * @author paolucci.sara
  */
-public class Runner extends Thread{
-    private String nome;
-    private ArrayList<Observer> observers = new ArrayList<>();
-    private int progresso = 0;
+public class Runner extends Thread {
+    private int id;
+    private Testimone testimone;
+    private Subject subject;
 
-    private Runner prossimo;
-    private boolean attivo = false;
-
-    public Runner(String nome) {
-        this.nome = nome;
-    }
-
-    public void setProssimo(Runner r) {
-        this.prossimo = r;
-    }
-
-
-    public void addObserver(Observer o) {
-        observers.add(o);
-    }
-
-    private void notifyObservers() {
-        for (Observer o : observers) {
-            o.update(progresso);
-        }
+    public Runner(int id, Testimone t, Subject s) {
+        this.id = id;
+        this.testimone = t;
+        this.subject = s;
     }
 
     @Override
     public void run() {
+        try {
+            testimone.attendiTurno(id);
 
             for (int i = 0; i <= 100; i++) {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {}
+                Thread.sleep((int)(Math.random() * 100));
 
-                progresso = i;
-                notifyObservers();
-
-                if (progresso >= 90) {
-                    prossimo.start();
-                }
+                subject.notifyObservers(id, i);
             }
 
-            attivo = false; // IMPORTANTISSIMO
+            testimone.passa();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-    
-    
- }
+    }
+}
 

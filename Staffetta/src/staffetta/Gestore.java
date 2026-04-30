@@ -4,39 +4,41 @@
  */
 package staffetta;
 
+import java.util.ArrayList;
+
 
 /**
  *
  * @author paolucci.sara
  */
-public class Gestore {
-    private Runner r1, r2, r3, r4;
+public class Gestore implements Subject {
+
+    private ArrayList<Observer> observers = new ArrayList<>();
+    private ArrayList<Runner> runners = new ArrayList<>();
 
     public Gestore() {
+        Testimone t = new Testimone();
 
-        r1 = new Runner("1");
-        r2 = new Runner("2");
-        r3 = new Runner("3");
-        r4 = new Runner("4");
-
-        // catena
-        r1.setProssimo(r2);
-        r2.setProssimo(r3);
-        r3.setProssimo(r4);
-
-        //
+        for (int i = 0; i < 4; i++) {
+            runners.add(new Runner(i, t, this));
+        }
     }
 
     public void startRace() {
-        r1.start();
+        for (Runner r : runners) {
+            r.start();
+        }
     }
 
-    // collegamento GUI
-    public void bind(Observer o1, Observer o2, Observer o3, Observer o4) {
-        r1.addObserver(o1);
-        r2.addObserver(o2);
-        r3.addObserver(o3);
-        r4.addObserver(o4);
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
     }
-    
+
+    public void notifyObservers(int runnerId, int progress) {
+        for (Observer o : observers) {
+            o.update(runnerId, progress);
+        }
+    }
+
 }

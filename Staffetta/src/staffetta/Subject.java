@@ -9,9 +9,6 @@ package staffetta;
  * @author sarap
  */
 public interface Subject {
-    
     void addObserver(Observer o);
-    void removeObserver(Observer o);
-    void notifyObservers();
-    
+    void notifyObservers(int runnerId, int progress);
 }

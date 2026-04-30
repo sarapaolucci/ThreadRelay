@@ -11,8 +11,9 @@ import javax.swing.SwingUtilities;
  *
  * @author paolucci.sara
  */
-public class Form extends javax.swing.JFrame {
+public class Form extends javax.swing.JFrame implements Observer{
     private Gestore g;
+    private JProgressBar[] bars = new JProgressBar[4];
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Form.class.getName());
 
     /**
@@ -21,11 +22,21 @@ public class Form extends javax.swing.JFrame {
     public Form() {
         initComponents();
         
+        g = new Gestore();
+        g.addObserver(this);
+        
+        bars[0] = pbr1;
+        bars[1] = pbr2;
+        bars[2] = pbr3;
+        bars[3] = pbr4;
         
     }
     
-    private void aggiorna(JProgressBar bar, int v) {
-        SwingUtilities.invokeLater(() -> bar.setValue(v));
+    @Override
+    public void update(int runnerId, int progress) {
+        SwingUtilities.invokeLater(() -> {
+            bars[runnerId].setValue(progress);
+        });
     }
 
     /**
@@ -171,15 +182,7 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
-       this.g = new Gestore();
-        g.bind(
-            v -> aggiorna(pbr1, v),
-            v -> aggiorna(pbr2, v),
-            v -> aggiorna(pbr3, v),
-            v -> aggiorna(pbr4, v)
-        );
-        
-        g.startRace();
+       g.startRace();
     }//GEN-LAST:event_btnAvviaActionPerformed
 
     /**

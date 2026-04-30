@@ -9,7 +9,5 @@ package staffetta;
  * @author sarap
  */
 public interface Observer {
-    
-    void update(int valore);
-    
+    void update(int runnerId, int progress);
 }
