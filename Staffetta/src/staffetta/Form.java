@@ -24,8 +24,6 @@ public class Form extends javax.swing.JFrame implements Observer{
     public Form() {
         initComponents();
         
-        
-        
         bars[0] = pbr1;
         bars[1] = pbr2;
         bars[2] = pbr3;
@@ -35,13 +33,17 @@ public class Form extends javax.swing.JFrame implements Observer{
         labels[1]=lbl2;
         labels[2]=lbl3;
         labels[3]=lbl4;
+        
+        btnSospendi.setEnabled(false);
+        btnRiprendi.setEnabled(false);
+        btnFerma.setEnabled(false);
     }
     
     @Override
     public void update(int runnerId, int progress) {
         SwingUtilities.invokeLater(() -> {
             bars[runnerId].setValue(progress);
-            labels[runnerId].setText("Runner " + (runnerId+1) + "  -  "+ progress + "%");
+            labels[runnerId].setText("Runner " + (runnerId+1) + "       "+ progress + "%");
         });
     }
 
@@ -64,9 +66,9 @@ public class Form extends javax.swing.JFrame implements Observer{
         lbl3 = new javax.swing.JLabel();
         lbl4 = new javax.swing.JLabel();
         btnAvvia = new javax.swing.JButton();
-        btn2 = new javax.swing.JButton();
-        btn3 = new javax.swing.JButton();
-        btn4 = new javax.swing.JButton();
+        btnSospendi = new javax.swing.JButton();
+        btnRiprendi = new javax.swing.JButton();
+        btnFerma = new javax.swing.JButton();
         cmb1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,17 +100,20 @@ public class Form extends javax.swing.JFrame implements Observer{
         btnAvvia.setText("Avvia");
         btnAvvia.addActionListener(this::btnAvviaActionPerformed);
 
-        btn2.setBackground(new java.awt.Color(204, 204, 204));
-        btn2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btn2.setText("Sospendi");
+        btnSospendi.setBackground(new java.awt.Color(204, 204, 204));
+        btnSospendi.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnSospendi.setText("Sospendi");
+        btnSospendi.addActionListener(this::btnSospendiActionPerformed);
 
-        btn3.setBackground(new java.awt.Color(204, 204, 204));
-        btn3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btn3.setText("Riprendi");
+        btnRiprendi.setBackground(new java.awt.Color(204, 204, 204));
+        btnRiprendi.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnRiprendi.setText("Riprendi");
+        btnRiprendi.addActionListener(this::btnRiprendiActionPerformed);
 
-        btn4.setBackground(new java.awt.Color(204, 204, 204));
-        btn4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btn4.setText("Ferma");
+        btnFerma.setBackground(new java.awt.Color(204, 204, 204));
+        btnFerma.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnFerma.setText("Ferma");
+        btnFerma.addActionListener(this::btnFermaActionPerformed);
 
         cmb1.setBackground(new java.awt.Color(204, 204, 204));
         cmb1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -140,11 +145,11 @@ public class Form extends javax.swing.JFrame implements Observer{
                         .addGap(18, 18, 18)
                         .addComponent(btnAvvia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn2)
+                        .addComponent(btnSospendi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn3)
+                        .addComponent(btnRiprendi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn4)))
+                        .addComponent(btnFerma)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -169,9 +174,9 @@ public class Form extends javax.swing.JFrame implements Observer{
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAvvia)
-                    .addComponent(btn2)
-                    .addComponent(btn3)
-                    .addComponent(btn4)
+                    .addComponent(btnSospendi)
+                    .addComponent(btnRiprendi)
+                    .addComponent(btnFerma)
                     .addComponent(cmb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -195,18 +200,46 @@ public class Form extends javax.swing.JFrame implements Observer{
 
         int delay;
 
-        if (scelta.equals("Slow")) {
-            delay = 120;
-        } else if (scelta.equals("Fast")) {
-            delay = 30;
-        } else {
-            delay = 70; 
+        switch (scelta) {
+            case "Slow":
+                delay = 120;
+                break;
+            case "Fast":
+                delay = 30; 
+                break;
+            default:
+                delay = 70;
+                break;
         }
-
-        g = new Gestore(delay);
+        btnAvvia.setEnabled(false);
+        btnSospendi.setEnabled(true);
+        btnRiprendi.setEnabled(false);
+        btnFerma.setEnabled(true);
+        
+        this.g = new Gestore(delay);
         g.addObserver(this);
         g.startRace();
     }//GEN-LAST:event_btnAvviaActionPerformed
+
+    private void btnSospendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSospendiActionPerformed
+        g.sospendi();
+        btnSospendi.setEnabled(false);
+        btnRiprendi.setEnabled(true);
+    }//GEN-LAST:event_btnSospendiActionPerformed
+
+    private void btnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiprendiActionPerformed
+        g.riprendi();
+        btnSospendi.setEnabled(true);
+        btnRiprendi.setEnabled(false);
+    }//GEN-LAST:event_btnRiprendiActionPerformed
+
+    private void btnFermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFermaActionPerformed
+        g.ferma();
+        btnAvvia.setEnabled(true);
+        btnSospendi.setEnabled(false);
+        btnRiprendi.setEnabled(false);
+        btnFerma.setEnabled(false);
+    }//GEN-LAST:event_btnFermaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,10 +247,10 @@ public class Form extends javax.swing.JFrame implements Observer{
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn2;
-    private javax.swing.JButton btn3;
-    private javax.swing.JButton btn4;
     private javax.swing.JButton btnAvvia;
+    private javax.swing.JButton btnFerma;
+    private javax.swing.JButton btnRiprendi;
+    private javax.swing.JButton btnSospendi;
     private javax.swing.JComboBox<String> cmb1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl1;

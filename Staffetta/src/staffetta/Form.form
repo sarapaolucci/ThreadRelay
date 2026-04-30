@@ -69,11 +69,11 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnAvvia" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btn2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSospendi" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btn3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRiprendi" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btn4" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnFerma" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
@@ -106,9 +106,9 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAvvia" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSospendi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRiprendi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnFerma" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmb1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="13" max="32767" attributes="0"/>
@@ -179,7 +179,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvviaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn2">
+        <Component class="javax.swing.JButton" name="btnSospendi">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -189,8 +189,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Sospendi"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSospendiActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn3">
+        <Component class="javax.swing.JButton" name="btnRiprendi">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -200,8 +203,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Riprendi"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRiprendiActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn4">
+        <Component class="javax.swing.JButton" name="btnFerma">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -211,6 +217,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Ferma"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFermaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmb1">
           <Properties>
