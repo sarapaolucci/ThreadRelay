@@ -4,6 +4,7 @@
  */
 package staffetta;
 
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
@@ -14,6 +15,7 @@ import javax.swing.SwingUtilities;
 public class Form extends javax.swing.JFrame implements Observer{
     private Gestore g;
     private JProgressBar[] bars = new JProgressBar[4];
+    private JLabel[] labels = new JLabel[4];
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Form.class.getName());
 
     /**
@@ -22,20 +24,24 @@ public class Form extends javax.swing.JFrame implements Observer{
     public Form() {
         initComponents();
         
-        g = new Gestore();
-        g.addObserver(this);
+        
         
         bars[0] = pbr1;
         bars[1] = pbr2;
         bars[2] = pbr3;
         bars[3] = pbr4;
         
+        labels[0]=lbl1;
+        labels[1]=lbl2;
+        labels[2]=lbl3;
+        labels[3]=lbl4;
     }
     
     @Override
     public void update(int runnerId, int progress) {
         SwingUtilities.invokeLater(() -> {
             bars[runnerId].setValue(progress);
+            labels[runnerId].setText("Runner " + (runnerId+1) + "  -  "+ progress + "%");
         });
     }
 
@@ -68,16 +74,24 @@ public class Form extends javax.swing.JFrame implements Observer{
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         lbl1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        lbl1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbl1.setText("Runner 1");
+        lbl1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         lbl2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        lbl2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbl2.setText("Runner 2");
+        lbl2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         lbl3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        lbl3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbl3.setText("Runner 3");
+        lbl3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         lbl4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        lbl4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbl4.setText("Runner 4");
+        lbl4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btnAvvia.setBackground(new java.awt.Color(204, 204, 204));
         btnAvvia.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -108,23 +122,18 @@ public class Form extends javax.swing.JFrame implements Observer{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pbr2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pbr3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pbr4, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pbr2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pbr3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pbr4, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lbl4, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lbl3, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                                .addComponent(lbl2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(cmb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,7 +191,21 @@ public class Form extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
-       g.startRace();
+       String scelta = cmb1.getSelectedItem().toString();
+
+        int delay;
+
+        if (scelta.equals("Slow")) {
+            delay = 120;
+        } else if (scelta.equals("Fast")) {
+            delay = 30;
+        } else {
+            delay = 70; 
+        }
+
+        g = new Gestore(delay);
+        g.addObserver(this);
+        g.startRace();
     }//GEN-LAST:event_btnAvviaActionPerformed
 
     /**

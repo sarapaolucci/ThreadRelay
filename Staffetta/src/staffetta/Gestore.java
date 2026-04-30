@@ -16,11 +16,11 @@ public class Gestore implements Subject {
     private ArrayList<Observer> observers = new ArrayList<>();
     private ArrayList<Runner> runners = new ArrayList<>();
 
-    public Gestore() {
+    public Gestore(int delay) {
         Testimone t = new Testimone();
 
         for (int i = 0; i < 4; i++) {
-            runners.add(new Runner(i, t, this));
+            runners.add(new Runner(i, "Runner " + i, t, this, delay));
         }
     }
 
@@ -35,10 +35,10 @@ public class Gestore implements Subject {
         observers.add(o);
     }
 
+    @Override
     public void notifyObservers(int runnerId, int progress) {
         for (Observer o : observers) {
             o.update(runnerId, progress);
         }
     }
-
 }
