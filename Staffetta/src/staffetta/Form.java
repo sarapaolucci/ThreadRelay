@@ -197,7 +197,10 @@ public class Form extends javax.swing.JFrame implements Observer{
 
     private void btnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvviaActionPerformed
        String scelta = cmb1.getSelectedItem().toString();
-
+       pbr1.setValue(0);
+       pbr2.setValue(0);
+       pbr3.setValue(0);
+       pbr4.setValue(0);
         int delay;
 
         switch (scelta) {
